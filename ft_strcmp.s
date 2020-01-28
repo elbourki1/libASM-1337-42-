@@ -2,24 +2,30 @@ section .text
 
 global _ft_strcmp
 _ft_strcmp:
+	push rdi
+	push rsi
+
 label:
-	mov al,byte[rsi]
-    cmp al, byte[rdi]
-	jne finish1
-	cmp al, 0
+	mov al,byte[rdi]
+    cmp al, byte[rsi]
+	jne finishx
+	cmp byte[rdi], 0
 	je finish1
-	mov bl, byte[rdi]
-	cmp bl, 0
-	je finish1
-	inc rsi
 	inc rdi
-    je label
+	inc rsi
+    jmp label
 finishx:
-	mov bl, byte[rdi]
-	sub bl, al
-	movzx rax, al
-	ret
+	mov al, byte[rdi]
+	mov bl, byte[rsi]
+	movzx rax,al
+	movzx rbx,bl
+	sub rax, rbx
+	cmp rax, 0
+	jmp end
 finish1:
-	sub al,byte[rdi]
-	movzx rax, 0
+	mov rax, 0
+	jmp end
+end:
+	pop rsi
+	pop rdi
 	ret

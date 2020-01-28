@@ -1,17 +1,17 @@
 section .text
 
 global _ft_strlen
-;.type    ft_strlen,@function
 _ft_strlen:
 	push rbx
 	mov rbx, rdi
+	mov rcx, 0
 nextchar:
 	cmp byte[rdi], 0
 	jz finish
 	inc rdi
+	inc rcx
 	jmp nextchar
 finish:
-	sub rdi, rbx
-	mov rax,rdi
+	mov rax, rcx
 	pop rbx
 	ret
